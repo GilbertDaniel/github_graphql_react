@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import github from './db.js';
 import query from './Query.js';
+import ReposComponent from './components/ReposComponent';
 const App = () => {
-  const [userName, setUserName] = useState("")
+  let [userName, setUserName] = useState("")
+  let [repoList, setRepoList] = useState([])
 
   const fetchData = useCallback(() => {
     fetch(github.baseURL, {
@@ -12,8 +14,8 @@ const App = () => {
     })
       .then(response => response.json())
       .then(data => {
-        setUserName(data.data.viewer.name)
-        console.log(userName)
+        const viewer = data.data.viewer
+        setUserName(viewer.name)
       })
       .catch(err => {
         console.log(err)
@@ -29,6 +31,7 @@ const App = () => {
         <i className='bi bi-diagram-2-fill'>Repos</i>
       </h1>
       <p>Hey there {userName}</p>
+      <ReposComponent/>
     </div>
   )
 }

@@ -1,9 +1,17 @@
 const githubQuery = {
     query: `
     {
-      viewer {
-        name
-      }
+        viewer {
+          name
+          repositories(first: 10) {
+            nodes {
+              id
+              name
+              description
+              url
+            }
+          }
+        }
     } 
     `,
 };
