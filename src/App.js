@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import github from './db.js';
+import query from './Query.js';
 const App = () => {
   const [userName, setUserName] = useState("")
   useEffect(() => {
-    const githubQuery = {
-      query: `
-      {
-        viewer {
-          name
-        }
-      } 
-      `,
-    };
+    
     fetch(github.baseURL, {
       method: "POST",
       headers: github.headers,
-      body: JSON.stringify(githubQuery),
+      body: JSON.stringify(query),
     })
     .then(response => response.json())
     .then(data => {
