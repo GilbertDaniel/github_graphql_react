@@ -1,6 +1,9 @@
 const githubQuery = {
     query: `
     {
+        viewer {
+            name
+          }
         search(
           query: "user:GilbertDaniel sort:update-desc"
           type: REPOSITORY
@@ -12,6 +15,7 @@ const githubQuery = {
               name
               description
               url
+              viewerSubscription
             }
           }
         }
