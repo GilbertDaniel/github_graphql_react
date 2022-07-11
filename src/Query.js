@@ -4,9 +4,12 @@ const githubQuery = (pageCount, queryString) => {
     {
         viewer {
             name
+            avatarUrl
+            login
+            bio
           }
         search(
-          query: "${queryString} user:planetoftheweb sort:update-desc"
+          query: "${queryString} user:GilbertDaniel sort:update-desc"
           type: REPOSITORY
           first: ${pageCount}
         ) {

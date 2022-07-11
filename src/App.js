@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import RepoInfoComponent from './components/RepoInfoComponent.js';
+import UserInfoComponent from './components/UserInfoComponent.js';
 import github from './db.js';
 import query from './Query.js';
 import { fetchData } from './utils/fetchData';
 const App = () => {
-  const [userName, setUserName] = useState("")
+  const [userData, setUserData] = useState("")
   const [repoData, setRepoData] = useState([])
   const [pageCount, setPageCount] = useState(10)
-  const [queryString, setQueryString] = useState("slides")
+  const [queryString, setQueryString] = useState("react")
   const [totalCount, setTotalCount] = useState(null)
 
   const queryText = JSON.stringify(query(pageCount, queryString))
@@ -23,7 +24,7 @@ const App = () => {
       const total = githubData.data.search.repositoryCount
       setTotalCount(total)
       setRepoData(githubData.data.search.nodes)
-      setUserName(githubData.data.viewer.name)
+      setUserData(githubData.data.viewer)
     }
 
     fetchGitHubData()
@@ -33,7 +34,7 @@ const App = () => {
       <h1 className='text-primary'>
         <i className='bi bi-diagram-2-fill'>Repos</i>
       </h1>
-      <p>Hey there {userName}</p>
+      <UserInfoComponent userData={userData}/>
       <p>
         <b>Search for :</b> {queryString} | <b>Item per page :</b> {pageCount} | <b>Total results :</b> {totalCount}
       </p>
