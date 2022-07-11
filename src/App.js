@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
+import RepoInfoComponent from './components/RepoInfoComponent.js';
 import github from './db.js';
 import { githubOptions, fetchData } from './utils/fetchData';
 const App = () => {
@@ -8,7 +9,7 @@ const App = () => {
   useEffect(() => {
     const fetchGitHubData = async () => {
       const githubData = await fetchData(`${github.baseURL}`, githubOptions);
-      setRepoData(githubData.data.viewer.repositories.nodes)
+      setRepoData(githubData.data.search.nodes)
       setUserName(githubData.data.viewer.name)
     }
 
@@ -20,7 +21,8 @@ const App = () => {
         <i className='bi bi-diagram-2-fill'>Repos</i>
       </h1>
       <p>Hey there {userName}</p>
-      <ul className='list-group list-group-flush'>
+      <RepoInfoComponent repos={repoData}/>
+      {/* <ul className='list-group list-group-flush'>
         {
           repoData.map((item) => {
             return (
@@ -33,7 +35,7 @@ const App = () => {
             )
           })
         }
-      </ul>
+      </ul> */}
     </div>
   )
 }

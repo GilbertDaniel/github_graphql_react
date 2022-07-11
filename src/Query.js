@@ -1,10 +1,13 @@
 const githubQuery = {
     query: `
     {
-        viewer {
-          name
-          repositories(first: 10) {
-            nodes {
+        search(
+          query: "user:GilbertDaniel sort:update-desc"
+          type: REPOSITORY
+          first: 20
+        ) {
+          nodes {
+            ... on Repository {
               id
               name
               description
@@ -12,7 +15,7 @@ const githubQuery = {
             }
           }
         }
-    } 
+    }
     `,
 };
 
