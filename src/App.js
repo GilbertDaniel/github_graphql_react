@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RepoInfoComponent from './components/RepoInfoComponent.js';
+import SearchBoxComponent from './components/SearchBoxComponent.js';
 import UserInfoComponent from './components/UserInfoComponent.js';
 import github from './db.js';
 import query from './Query.js';
@@ -8,7 +9,7 @@ const App = () => {
   const [userData, setUserData] = useState("")
   const [repoData, setRepoData] = useState([])
   const [pageCount, setPageCount] = useState(10)
-  const [queryString, setQueryString] = useState("react")
+  const [queryString, setQueryString] = useState("")
   const [totalCount, setTotalCount] = useState(null)
 
   const queryText = JSON.stringify(query(pageCount, queryString))
@@ -35,9 +36,18 @@ const App = () => {
         <i className='bi bi-diagram-2-fill'>Repos</i>
       </h1>
       <UserInfoComponent userData={userData}/>
+      <SearchBoxComponent
+      totalCount={totalCount}
+      pageCount={pageCount}
+      queryString={queryString}
+      onTotalChange={(myNumber) => {setPageCount(myNumber)}}
+      onQueryChange={(myString) => {setQueryString(myString)}}
+      
+      />
       <p>
         <b>Search for :</b> {queryString} | <b>Item per page :</b> {pageCount} | <b>Total results :</b> {totalCount}
       </p>
+      
       <RepoInfoComponent repos={repoData}/>
     </div>
   )
